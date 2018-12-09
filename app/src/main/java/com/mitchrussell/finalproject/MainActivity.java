@@ -1,5 +1,6 @@
 package com.mitchrussell.finalproject;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,13 +19,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
     private SectionsPageAdapter mSectionsPageAdapter;
     private ViewPager mViewPager;
+    private Button btnLoad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,16 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+
+        btnLoad = this.findViewById(R.id.btnLoad);
+        btnLoad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent newIntent = new Intent(getApplicationContext(), LoadActivity.class);
+                newIntent.putExtra("value", "Switched Activities");
+                startActivity(newIntent);
+            }
+        });
     }
 
     private void setupViewPager(ViewPager viewPager) {
