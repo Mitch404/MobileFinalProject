@@ -3,6 +3,8 @@ package com.mitchrussell.finalproject;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -17,7 +19,6 @@ public class LoadActivity extends AppCompatActivity {
     private SimpleAdapter adapter;
     private ListView conversionListView;
     private boolean isMetric;
-    private String volumeHeader, degreeHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,5 +66,24 @@ public class LoadActivity extends AppCompatActivity {
 
         adapter = new SimpleAdapter(this, data, resource, from, to);
         conversionListView.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_load, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent newIntent;
+        switch (item.getItemId()) {
+            case R.id.action_calc:
+                newIntent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(newIntent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

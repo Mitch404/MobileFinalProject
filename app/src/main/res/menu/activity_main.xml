@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_metric_history"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="Metric History"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_imperial_history"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="Imperial History"
+        app:showAsAction="never" />
+</menu>
