@@ -18,6 +18,7 @@
         android:layout_gravity="center"
         android:id="@+id/imperialVolumeEditText"
         android:hint="Water Volume in Fluid Ounces"
+        android:inputType="number"
         android:text=""/>
     <EditText
         android:layout_width="wrap_content"
@@ -25,6 +26,7 @@
         android:layout_gravity="center"
         android:id="@+id/imperialTemperatureEditText"
         android:hint="Desired Temperature Increase in Fahrenheit"
+        android:inputType="number"
         android:text=""/>
     <Button
         android:layout_width="wrap_content"
@@ -37,7 +39,7 @@
         android:layout_height="wrap_content"
         android:textSize="25sp"
         android:layout_gravity="center"
-        android:text=""
+        android:text="Result: "
         android:id="@+id/imperialResult" />
 
 </LinearLayout>

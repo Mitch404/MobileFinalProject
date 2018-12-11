@@ -9,16 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ImperialFragment extends Fragment {
     private static final String TAG = "ImperialFragment";
+    private static final boolean IS_METRIC = false;
 
     private Button btnImperial;
     private EditText imperialVolume;
     private EditText imperialTemperature;
-    private EditText imperialOutput;
+    private TextView imperialOutput;
     private double fluidOunceToMillilitre = 28.413125;
+    private ConversionDB db;
 
     @Nullable
     @Override
@@ -27,35 +30,33 @@ public class ImperialFragment extends Fragment {
         btnImperial = (Button) view.findViewById(R.id.imperialCalculateButton);
         imperialVolume = view.findViewById(R.id.imperialVolumeEditText);
         imperialTemperature = view.findViewById(R.id.imperialTemperatureEditText);
-        imperialOutput = view.findViewById(R.id.imperialResult);
+        imperialOutput = (TextView) view.findViewById(R.id.imperialResult);
 
-        btnImperial.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        db = new ConversionDB(getContext());
 
+        btnImperial.setOnClickListener(view1 -> {
             try{
                 int imperialVolumeInteger = Integer.parseInt(imperialVolume.getText().toString());
                 int imperialTemperatureInteger = Integer.parseInt(imperialTemperature.getText().toString());
 
                 double metricVolumeStopGap = imperialVolumeInteger * fluidOunceToMillilitre;
-
-                double metricTemperatureStopGap = ((imperialTemperatureInteger-32)*(5/9));
-
+                double metricTemperatureStopGap = (((double) imperialTemperatureInteger)*(5.0/9.0));
                 int imperialResult = (int) Math.round(metricTemperatureStopGap * metricVolumeStopGap);
 
+                imperialOutput.setText("Result: " + Integer.toString(imperialResult) + " calories.");
 
-
-                Toast.makeText(ImperialFragment.this.getActivity(), "This much energy in kcals: "
-                        + imperialResult, Toast.LENGTH_LONG).show();
-                imperialOutput.setText(imperialResult);
-
+                try {
+                    db.insertConversion(imperialVolumeInteger, imperialTemperatureInteger, imperialResult, IS_METRIC);
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
 
             }
             catch(Exception e){
                 Toast.makeText(ImperialFragment.this.getActivity(), "A number is invalid.", Toast.LENGTH_LONG).show();
             }
 
-            }
         });
         return view;
     }

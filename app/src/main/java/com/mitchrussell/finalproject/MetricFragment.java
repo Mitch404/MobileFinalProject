@@ -1,5 +1,6 @@
 package com.mitchrussell.finalproject;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,15 +10,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MetricFragment extends Fragment {
     private static final String TAG = "MetricFragment";
+    private static final boolean IS_METRIC = true;
 
     private Button btnMetric;
     private EditText metricVolume;
     private EditText metricTemperature;
-    private EditText metricOutput;
+    private TextView metricOutput;
+    private ConversionDB db;
 
     @Nullable
     @Override
@@ -26,8 +30,9 @@ public class MetricFragment extends Fragment {
         btnMetric = (Button) view.findViewById(R.id.metricCalculateButton);
         metricVolume = view.findViewById(R.id.metricVolumeEditText);
         metricTemperature = view.findViewById(R.id.metricTemperatureEditText);
-        metricOutput = view.findViewById(R.id.metricResult);
+        metricOutput = (TextView) view.findViewById(R.id.metricResult);
 
+        db = new ConversionDB(getContext());
 
         btnMetric.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,9 +44,14 @@ public class MetricFragment extends Fragment {
 
                 int metricResult = metricTemperatureInteger * metricVolumeInteger;
 
-                Toast.makeText(MetricFragment.this.getActivity(), "This much energy in kcals: " + metricResult, Toast.LENGTH_LONG).show();
-                metricOutput.setText(metricResult);
+                metricOutput.setText("Result: " + Integer.toString(metricResult) + " calories.");
 
+                try {
+                    db.insertConversion(metricVolumeInteger, metricTemperatureInteger, metricResult, IS_METRIC);
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
 
             }
             catch(Exception e){

@@ -5,16 +5,46 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:textSize="25sp"
         android:text="Loading Screen"
+        android:gravity="center"
         android:id="@+id/txtLoadScreen" />
-    <Button
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnLoading"
-        android:text="Loading Screen"/>
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/txtVolumeHeader"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:text="Volume"/>
+        <TextView
+            android:id="@+id/txtTempHeader"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:text="Temperature Change"/>
+        <TextView
+            android:id="@+id/txtCaloriesHeader"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:text="Calories"/>
+    </LinearLayout>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listCalc" />
 
 </LinearLayout>
